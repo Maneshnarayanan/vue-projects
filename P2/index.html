@@ -9,32 +9,40 @@
 
 <body>
   <div id="app">
-    <input v-model="age" placeholder="Enter age">
-    <h2>Your age is: {{ age }}</h2>
+    <input v-model="newItem" placeholder="Add item">
+    <button @click="addItem">Add</button>
+    <h2>Items List</h2>
+    <p v-if="items.length === 0">No items yet</p>
 
-    <div class="age-category">
-      <h3>Age Category:</h3>
-      <i>
-          <p v-if="age > 0 && age < 18">You are a minor</p>
-          <p v-if=" age>= 18 && age <= 30">You are an adult</p>
-          <p v-else-if="age > 30 && age <= 55">You are middle-aged</p>
-          <p v-else-if="age > 55">You are a senior citizen</p>
-          <p v-else></p>
-      </i>
-    </div>
+    <ul>
+      <li v-for="item in items">{{ item }}</li>
+    </ul>
+  </div>
 
-    <script>
-      const app = Vue.createApp({
-        data() {
-          return {
-            age: "55"
+
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          newItem: "",
+          items: []
+        }
+      },
+      methods: {
+        addItem() {
+          if (this.newItem.trim()) {
+            this.items.push(this.newItem);
+            this.newItem = "";
           }
         }
-      });
+      }
+    });
 
-      app.mount("#app");
+    app.mount("#app");
 
-    </script>
+
+  </script>
 
 </body>
 

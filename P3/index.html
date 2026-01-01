@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="../style/styles.css">
+  <title>My First Vue App</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+
+  <div id="app">
+    <greeting></greeting>
+  </div>
+
+
+  <script>
+    const app = Vue.createApp({});
+
+    app.component("greeting", {
+      template: `<h2>Hello from a component 👋</h2>`
+    });
+
+    app.mount("#app");
+
+
+
+  </script>
+
+</body>
+
+</html>
