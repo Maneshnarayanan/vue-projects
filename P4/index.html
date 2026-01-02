@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="../style/styles.css">
+  <title>My First Vue App</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div id="app">
+  <user-card
+    v-for="user in users"
+    :key="user.id"
+    :name="user.name">
+  </user-card>
+</div>
+
+
+
+
+  <script>
+   const app = Vue.createApp({
+  data() {
+    return {
+      users: [
+        { id: 1, name: "Mkn" },
+        { id: 2, name: "Anu" },
+        { id: 3, name: "Rahul" }
+      ]
+    }
+  }
+});
+
+app.component("user-card", {
+  props: ["name"],
+  template: `<p>👤 {{ name }}</p>`
+});
+
+
+    app.mount("#app");
+
+
+  </script>
+
+</body>
+
+</html>

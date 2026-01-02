@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="../style/styles.css">
+  <title>My First Vue App</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <counter-button @increment="count++"></counter-button>
+    <p>Total count: {{ count }}</p>
+  </div>
+
+
+
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          count: 0
+        }
+      }
+    });
+    app.component("counter-button", {
+      template: `
+    <button @click="notify">
+      Increment
+    </button>
+  `,
+      methods: {
+        notify() {
+          this.$emit("increment");
+        }
+      }
+    });
+
+
+    app.mount("#app");
+
+
+  </script>
+
+</body>
+
+</html>

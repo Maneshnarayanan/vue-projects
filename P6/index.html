@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="../style/styles.css">
+  <title>My First Vue App</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input v-model.number="price" placeholder="Price">
+    <input v-model.number="qty" placeholder="Quantity">
+
+    <p>Total: {{ total }}</p>
+    <p>Status: {{ status }}</p>
+
+  </div>
+
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          price: 0,
+          qty: 1
+        }
+      },
+      computed: {
+        total() {
+          return this.price * this.qty;
+        },
+        status() {
+          if (this.qty === 0) return "Out of stock";
+          if (this.qty < 5) return "Low stock";
+          return "Available";
+        }
+      }
+    });
+
+    app.mount("#app");
+
+
+  </script>
+
+</body>
+
+</html>

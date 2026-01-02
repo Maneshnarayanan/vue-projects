@@ -11,6 +11,11 @@
 
   <div id="app">
     <greeting></greeting>
+    <counter-box></counter-box>
+    <counter-box></counter-box>
+    <user-card fname="Alice" lname="Smith"></user-card>
+    <user-card fname="Bob" lname="Johnson"></user-card>
+
   </div>
 
 
@@ -21,9 +26,29 @@
       template: `<h2>Hello from a component 👋</h2>`
     });
 
+
+
+    app.component("counter-box", {
+      template: `
+        <div>
+          <p>Count: {{ count }}</p>
+          <button @click="count++">+</button>
+        </div>
+      `,
+      data() {
+        return {
+          count: 0
+        }
+      }
+    });
+
+
+    app.component("user-card", {
+      props: ["fname", "lname"],
+      template: `<p>User: {{ fname }} {{ lname }}</p>`
+    });
+
     app.mount("#app");
-
-
 
   </script>
 
