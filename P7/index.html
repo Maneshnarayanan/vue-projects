@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="../style/styles.css">
+  <title>My First Vue App</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <text-input v-model="username"></text-input>
+    <p v-if="usernameError" style="color:red">
+      {{ usernameError }}
+    </p>
+    <p>Username: {{ username }}</p>
+  </div>
+
+
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          username: ""
+        }
+      },
+
+      computed: {
+      usernameError() {
+        if (!this.username) return "Username required";
+        if (this.username.length < 4) return "Minimum 4 characters";
+        return "";
+      }
+    }
+
+    });
+    app.component("text-input", {
+      props: ["modelValue"],
+      template: `
+    <input
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+      placeholder="Enter username"
+    >
+  `
+    });
+
+
+    app.mount("#app");
+
+
+  </script>
+
+</body>
+
+</html>

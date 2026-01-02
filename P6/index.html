@@ -35,6 +35,12 @@
           if (this.qty < 5) return "Low stock";
           return "Available";
         }
+
+      },
+      watch: {
+        qty(newValue, oldValue) {
+          console.log("Qty changed from", oldValue, "to", newValue);
+        }
       }
     });
 

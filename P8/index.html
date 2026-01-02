@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My First Vue App</title>
+  <link rel="stylesheet" href="../style/styles.css">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+  <form @submit.prevent="submitForm">
+    <text-input v-model="form.name" placeholder="Name"></text-input>
+    <text-input v-model="form.email" placeholder="Email"></text-input>
+
+    <p v-if="usernameError" style="color:red">
+      {{ usernameError }}
+    </p>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        form: {
+          name: "",
+          email: ""
+        }
+      }
+    },
+
+    computed: {
+      usernameError() {
+        if (!this.form.name) return "Username required";
+        if (this.form.name.length < 4) return "Minimum 4 characters";
+        return "";
+      }
+    },
+
+    methods: {
+      submitForm() {
+        console.log("Sending to backend:", this.form);
+      }
+    }
+  });
+
+  // Register component
+  app.component("text-input", {
+    props: ["modelValue", "placeholder"],
+    template: `
+      <input
+        :value="modelValue"
+        :placeholder="placeholder"
+        @input="$emit('update:modelValue', $event.target.value)"
+      >
+    `
+  });
+
+  app.mount("#app");
+</script>
+
+</body>
+</html>
