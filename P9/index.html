@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My First Vue App</title>
+  <link rel="stylesheet" href="../style/styles.css">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+  <p v-if="loading">Loading users...</p>
+  <p v-if="error" style="color:red">{{ error }}</p>
+
+  <ul v-if="!loading">
+    <li v-for="user in users" :key="user.id">
+      {{ user.name }}
+    </li>
+  </ul>
+</div>
+
+
+<script>
+  
+const app = Vue.createApp({
+  data() {
+    return {
+      users: [],
+      loading: false,
+      error: ""
+    }
+  },
+
+  mounted() {
+    this.loadUsers();
+  },
+
+  methods: {
+    loadUsers() {
+      this.loading = true;
+      this.error = "";
+
+      fetch("https://jsonplaceholder.typicode.com/users")
+        .then(res => {
+          if (!res.ok) throw new Error("Network error");
+          return res.json();
+        })
+        .then(data => {
+          this.users = data;
+        })
+        .catch(err => {
+          this.error = err.message;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    }
+  }
+});
+
+app.mount("#app");
+
+</script>
+
+</body>
+</html>
